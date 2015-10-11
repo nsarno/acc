@@ -1,4 +1,4 @@
-class ACC::CheckTransactionResponse
+class Acc::CheckTransactionResponse
   def initialize json_response
     @response = json_response
   end

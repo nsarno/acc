@@ -1,24 +1,24 @@
 require 'curb'
 
-class ACC::Service
+class Acc::Service
   def initialize
-    @cert_path = File.join(Rails.root, ACC::CERTIFICATE_PATH)
+    @cert_path = File.join(Rails.root, Acc::CERTIFICATE_PATH)
     raise 'Invalid path to certificate' unless File.file?(@cert_path)
   end
 
   def bulk_enroll data
-    http_resp = request(ACC::BULK_ENROLL_URL, data)
-    ACC::BulkEnrollResponse.new JSON.parse(http_resp.body_str)
+    http_resp = request(Acc::BULK_ENROLL_URL, data)
+    Acc::BulkEnrollResponse.new JSON.parse(http_resp.body_str)
   end
 
   def check_transaction_status data
-    http_resp = request(ACC::CHECK_TRANSACTION_URL, data)
-    ACC::CheckTransactionResponse.new JSON.parse(http_resp.body_str)
+    http_resp = request(Acc::CHECK_TRANSACTION_URL, data)
+    Acc::CheckTransactionResponse.new JSON.parse(http_resp.body_str)
   end
 
   def show_order_details data
     puts 'SHOW ORDER DETAILS'
-    http_resp = request(ACC::SHOW_ORDER_URL, data)
+    http_resp = request(Acc::SHOW_ORDER_URL, data)
     puts http_resp
     JSON.parse(http_resp.body_str)
   end

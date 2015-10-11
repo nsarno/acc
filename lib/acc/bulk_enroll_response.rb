@@ -1,4 +1,4 @@
-class ACC::BulkEnrollResponse
+class Acc::BulkEnrollResponse
   def initialize json_response
     @response = json_response
   end
