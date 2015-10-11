@@ -15,12 +15,12 @@ class Acc::CheckTransactionResponse
   end
 
   def in_progress?
-    in_progress_array_error? || in_progress_error?
+    error_response.kind_of?(Array) ? in_progress_array_error? : in_progress_error?
   end
 
 
   def in_progress_array_error?
-    error_response.present? && error_response.kind_of?(Array) && error_response.first['errorCode'] == 'DEP-ERR-4003'
+    error_response.present? && error_response.first['errorCode'] == 'DEP-ERR-4003'
   end
 
   def in_progress_error?
