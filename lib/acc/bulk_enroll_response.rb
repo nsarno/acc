@@ -15,6 +15,10 @@ class Acc::BulkEnrollResponse
     error_response.nil? ? [] : error_response.collect { |e| e['errorMessage'] } 
   end
 
+  def raw_data
+    @response
+  end
+
   def data
     {
       dep_transaction_id: @response['deviceEnrollmentTransactionId'],

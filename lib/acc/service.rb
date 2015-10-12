@@ -1,4 +1,5 @@
 require 'curb'
+require 'json'
 
 class Acc::Service
   def bulk_enroll data
