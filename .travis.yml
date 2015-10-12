@@ -1,4 +1,12 @@
 language: ruby
 rvm:
-  - 2.2.2
+- 2.2.2
 before_install: gem install bundler -v 1.10.6
+deploy:
+  provider: rubygems
+  api_key:
+    secure: kv9NIdYQH+JQD2eBWr2hFJ4F9QWZALHqTDd6moPrfCz8LhH6e5/taGBIjNxbx3dndUu9C9hDXHgd7zkdE/ZXXmiixy7TZifFgbCreRaBaEXpI1pgowthagNXwngDBs+CU6BjwvjLtdmodvYJcmVpSwbc+56+fdCFIA8Z1nhwyopl0Y7EJNLVYKeRCPmrL3eu/U8yVcx78OxP3XU8hEa4BzG6IxXZpEEI3qDBpY0LmsydvqOgXLo4ZeD+ZgSe7s0n4dV+DwYN+SNx5tsZQIVRRYCf/U9nWb8OxDvhPKZa3SYMs7RiUVsY1pN0gtfLNmqEnC1XHXkKLbRTe1yB5Gm3ueIYtGPeSme6gOFrK2q655v5e/+NNoB/r5igYfaPJT/MtJEfxFD3LbqyssIi8drY5fI9FpOc9z3zLMADob3K+yxpMXTb8tmWXzv2znqm2E62OhHkafCUoL9+6B1S+50T5e8S3Z3ocH7dTsrQLZMd4pKBk8ZFwHWmKqNTI1m3wiIgZit/wWX2LvWyIaIixwPwTZbkVIwDolK0Y0iML9RPX4tll29Ms3IUfDwvMjMWOjmWnNptiIHMPOQMZKXezeKRBDovWD12dRs4TOd6L5Zyv5MzUJp5z34dEEL8xniouxPQdfkYhtrcWx5hNMjvZVVChr0P+CzAoJDtI3yZeZMA60Y=
+  gem: acc
+  on:
+    tags: true
+    repo: nsarno/acc
