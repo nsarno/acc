@@ -4,10 +4,11 @@ class Acc::CheckTransactionResponse
   end
 
   def error?
-    ship_to_error? ||
-    error_response.present? ||
-    @response['statusCode'] == 'ERROR' ||
-    @response['statusCode'] == 'COMPLETE_WITH_ERRORS'
+    !error_response.nil? || ship_to_error? || order_error?
+  end
+
+  def order_error?
+    @response['statusCode'] == 'ERROR' || @response['statusCode'] == 'COMPLETE_WITH_ERRORS'
   end
 
   def complete?
@@ -20,11 +21,11 @@ class Acc::CheckTransactionResponse
 
 
   def in_progress_array_error?
-    error_response.present? && error_response.first['errorCode'] == 'DEP-ERR-4003'
+    !error_response.nil? && error_response.first['errorCode'] == 'DEP-ERR-4003'
   end
 
   def in_progress_error?
-    error_response.present? && error_response['errorCode'] == 'DEP-ERR-4003'
+    !error_response.nil? && error_response['errorCode'] == 'DEP-ERR-4003'
   end
 
   def success?
@@ -33,7 +34,7 @@ class Acc::CheckTransactionResponse
 
   def error_messages
     messages = [ship_to_error_message] + [single_error_message] + multiple_error_messages
-    messages.delete_if? { |k, v| v.blank? }
+    messages.delete_if { |msg| msg.nil? }
   end
 
   def data
@@ -42,24 +43,26 @@ class Acc::CheckTransactionResponse
 
   private
     def ship_to_error?
-      @response['errorCode'].present?
+      !@response['errorCode'].nil?
     end
 
     def error_response
       @response['checkTransactionErrorResponse']
     end
 
-    def ship_to_error_response
+    def ship_to_error_message
       @response['errorMessage']
     end
 
     def single_error_message
-      error_response['errorMessage'] if error_response.present?
+      error_response['errorMessage'] unless error_response.nil? || error_response.kind_of?(Array)
     end
 
     def multiple_error_messages
-      if error_response.present? && error_response.kind_of?(Array)
+      if !error_response.nil? && error_response.kind_of?(Array)
         error_response.collect { |e| e['errorMessage'] }
+      else
+        []
       end
     end
 end

@@ -1,10 +1,22 @@
-require "acc/version"
+require 'acc/version'
+require 'active_support'
 
 module Acc
-  BULK_ENROLL_URL = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/bulk-enroll-devices'
-  CHECK_TRANSACTION_URL = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/check-transaction-status'
-  SHOW_ORDER_URL = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/show-order-details'
-  CERTIFICATE_PATH = Rails.env.production? ? 'config/certificate.pem' : 'config/certificate.pfx'
+  mattr_accessor :bulk_enroll_endpoint
+  self.bulk_enroll_endpoint = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/bulk-enroll-devices'
+
+  mattr_accessor :check_transaction_endpoint
+  self.check_transaction_endpoint = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/check-transaction-status'
+
+  mattr_accessor :show_order_endpoint
+  self.show_order_endpoint = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/show-order-details'
+
+  mattr_accessor :certificate_path
+  self.certificate_path = 'config/certificate.pem'
+
+  def self.setup
+    yield self
+  end
 end
 
 require 'acc/bulk_enroll_response'

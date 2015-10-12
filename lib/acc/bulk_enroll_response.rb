@@ -4,7 +4,7 @@ class Acc::BulkEnrollResponse
   end
 
   def error?
-    error_response.present?
+    !error_response.nil?
   end
 
   def success?
@@ -12,14 +12,14 @@ class Acc::BulkEnrollResponse
   end
 
   def error_messages
-    error_response.collect { |e| e['errorMessage'] }
+    error_response.nil? ? [] : error_response.collect { |e| e['errorMessage'] } 
   end
 
   def data
     {
       dep_transaction_id: @response['deviceEnrollmentTransactionId'],
       status_message: @response['enrollDevicesResponse']['statusMessage']
-    }
+    } if self.success?
   end
 
   private
@@ -30,6 +30,6 @@ class Acc::BulkEnrollResponse
     end
 
     def ship_to_error_response
-      @response if @response['errorMessage'].present?
+      @response unless @response['errorMessage'].nil?
     end
 end
