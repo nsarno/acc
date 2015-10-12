@@ -19,7 +19,6 @@ class Acc::CheckTransactionResponse
     error_response.kind_of?(Array) ? in_progress_array_error? : in_progress_error?
   end
 
-
   def in_progress_array_error?
     !error_response.nil? && error_response.first['errorCode'] == 'DEP-ERR-4003'
   end
@@ -35,6 +34,10 @@ class Acc::CheckTransactionResponse
   def error_messages
     messages = [ship_to_error_message] + [single_error_message] + multiple_error_messages
     messages.delete_if { |msg| msg.nil? }
+  end
+
+  def raw_data
+    @response
   end
 
   def data
