@@ -11,8 +11,8 @@ module Acc
   mattr_accessor :show_order_endpoint
   self.show_order_endpoint = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/show-order-details'
 
-  mattr_accessor :certificate_path
-  self.certificate_path = 'config/certificate.pem'
+  mattr_accessor :certificate
+  mattr_accessor :certificate_password
 
   def self.setup
     yield self

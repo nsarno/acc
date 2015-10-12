@@ -1,24 +1,18 @@
 require 'curb'
 
 class Acc::Service
-  def initialize
-    @cert_path = File.join(Rails.root, Acc::CERTIFICATE_PATH)
-    raise 'Invalid path to certificate' unless File.file?(@cert_path)
-  end
-
   def bulk_enroll data
-    http_resp = request(Acc::BULK_ENROLL_URL, data)
+    http_resp = request(Acc.bulk_enroll_endpoint, data)
     Acc::BulkEnrollResponse.new JSON.parse(http_resp.body_str)
   end
 
   def check_transaction_status data
-    http_resp = request(Acc::CHECK_TRANSACTION_URL, data)
+    http_resp = request(Acc.check_transaction_endpoint, data)
     Acc::CheckTransactionResponse.new JSON.parse(http_resp.body_str)
   end
 
   def show_order_details data
-    puts 'SHOW ORDER DETAILS'
-    http_resp = request(Acc::SHOW_ORDER_URL, data)
+    http_resp = request(Acc.show_order_endpoint, data)
     puts http_resp
     JSON.parse(http_resp.body_str)
   end
@@ -26,8 +20,8 @@ class Acc::Service
   private
     def request url, data
       http_response = Curl::Easy.perform(url) do |req|
-        req.certpassword = 'Password123'
-        req.cert = @cert_path
+        req.certpassword = Acc.certificate_password
+        req.cert = Acc.certificate
         req.post_body = data
         req.headers['Content-Type'] = 'application/json'
       end
