@@ -6,6 +6,7 @@ require 'acc/version'
 Gem::Specification.new do |spec|
   spec.name          = "acc"
   spec.version       = Acc::VERSION
+  spec.licenses      = ['MIT']
   spec.authors       = ["Arnaud MESUREUR"]
   spec.email         = ["arnaud.mesureur@gmail.com"]
 
