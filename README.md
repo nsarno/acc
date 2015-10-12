@@ -1,5 +1,7 @@
 # Acc
 
+[![Build Status](https://travis-ci.org/nsarno/acc.svg)](https://travis-ci.org/nsarno/acc)
+
 Interface for the AppleCare Connect Device Enrollment Program API
 
 ## Installation
