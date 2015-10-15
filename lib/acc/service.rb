@@ -14,7 +14,6 @@ class Acc::Service
 
   def show_order_details data
     http_resp = request(Acc.show_order_endpoint, data)
-    puts http_resp
     JSON.parse(http_resp.body_str)
   end
 
