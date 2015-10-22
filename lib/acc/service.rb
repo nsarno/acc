@@ -20,8 +20,9 @@ class Acc::Service
   private
     def request url, data
       http_response = Curl::Easy.perform(url) do |req|
-        req.certpassword = Acc.certificate_password if Acc.certificate_password
         req.cert = Acc.certificate
+        req.cacert = Acc.ca_certificate if Acc.ca_certificate
+        req.certpassword = Acc.certificate_password if Acc.certificate_password
         req.post_body = data
         req.headers['Content-Type'] = 'application/json'
       end

@@ -12,6 +12,7 @@ module Acc
   self.show_order_endpoint = 'https://api-applecareconnect-ept.apple.com/enroll-service/1.0/show-order-details'
 
   mattr_accessor :certificate
+  mattr_accessor :ca_certificate
   mattr_accessor :certificate_password
 
   def self.setup
